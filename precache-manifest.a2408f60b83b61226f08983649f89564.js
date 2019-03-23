@@ -20,7 +20,7 @@ self.__precacheManifest = [
     "url": "/trash-client/static/css/main.a4ad4005.chunk.css"
   },
   {
-    "revision": "065f7f08b9c30a5c5d25a9fc748536ff",
+    "revision": "f01cf71efb45084ec2689102aaf2e978",
     "url": "/trash-client/index.html"
   }
 ];
