@@ -2,8 +2,8 @@ import React from 'react';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 import axios from 'axios'
-import "bootstrap/dist/css/bootstrap.css";
-
+// import "bootstrap/dist/css/bootstrap.css";
+// import './App.css'
 
 
 export default class MyForm extends React.Component {
@@ -56,7 +56,7 @@ export default class MyForm extends React.Component {
 
   render() {
     return (
-      <Form>
+      <Form id="myForm">
         <FormGroup>
           <Label for="userName">Name</Label>
           <Input onChange={this.formChanged} type="text" name="name" id="userName" placeholder="enter your name" />
@@ -65,7 +65,7 @@ export default class MyForm extends React.Component {
           <Label for="exampleText">Comment</Label>
           <Input onChange={this.formChanged} type="textarea" name="comment" id="exampleText" placeholder="please leave a comment"/>
         </FormGroup>
-        <Button type='submit' onClick={this.formSubmit}>Submit</Button>
+        <Button onClick={this.formSubmit}>Submit</Button>
       </Form>
     );
   }

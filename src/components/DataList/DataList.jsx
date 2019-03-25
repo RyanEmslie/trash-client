@@ -4,7 +4,10 @@ import {
   ListGroupItem,
   ListGroupItemHeading,
   ListGroupItemText,
-  Button
+  Button,
+  Container,
+  Row,
+  Col
 } from 'reactstrap';
 import axios from 'axios';
 
@@ -18,23 +21,22 @@ export default class DataList extends Component {
     this.fetchHeroku();
   }
 
-
   // deletes items from locations list
   deleteItem = e => {
-    console.log('DELETE')
-    console.log(e.target.getAttribute('id'))
-  	const delID = e.target.getAttribute("id");
-    axios.delete(`https://trash-server-rte.herokuapp.com/api/testData/${delID}`)
+    console.log('DELETE');
+    console.log(e.target.getAttribute('id'));
+    const delID = e.target.getAttribute('id');
+    axios.delete(
+      `https://trash-server-rte.herokuapp.com/api/testData/${delID}`
+    );
     this.setState({
       hasLoaded: false
-    })
+    });
     this.fetchHeroku();
   };
 
-
-
   fetchHeroku = () => {
-    console.log('GET')
+    console.log('GET');
     fetch('https://trash-server-rte.herokuapp.com/api/testData')
       .then(res => res.json())
       .then(res => {
@@ -45,9 +47,7 @@ export default class DataList extends Component {
       });
   };
 
-
   render() {
-
     if (this.state.hasLoaded) {
       const { fetchArr } = this.state;
 
@@ -56,24 +56,31 @@ export default class DataList extends Component {
       //!
       const finalArr = fetchArr.map(data => {
         return (
-          <ListGroup >
-            <ListGroupItem>
-              <ListGroupItemHeading >{data.name}</ListGroupItemHeading>
-              <ListGroupItemText>{data.comment}</ListGroupItemText>
-              <ListGroupItemText>{data.date}</ListGroupItemText>
-              <Button type='submit'
-            color="danger"
-            // key={markerItem.date}
-            id={data._id}
-            className="remove-btn location-lists"
-            onClick={this.deleteItem}>
-            Delete
-          </Button>
-            </ListGroupItem>
-          </ListGroup>
+         
+           
+              <Col xs="6" sm="4">
+                <ListGroup id="myListGroup">
+                  <ListGroupItem>
+                    <ListGroupItemHeading>{data.name}</ListGroupItemHeading>
+                    <ListGroupItemText>{data.comment}</ListGroupItemText>
+                    <ListGroupItemText>{data.date}</ListGroupItemText>
+                    <Button
+                      type="submit"
+                      color="danger"
+                      // key={markerItem.date}
+                      id={data._id}
+                      className="remove-btn location-lists"
+                      onClick={this.deleteItem}>
+                      Delete
+                    </Button>
+                  </ListGroupItem>
+                </ListGroup>
+              </Col>
+            
+         
         );
       });
-      return <div>{finalArr}</div>;
+      return <div> <Container><Row>{finalArr} </Row></Container></div>;
     } else {
       return null;
     }
