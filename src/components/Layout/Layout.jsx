@@ -6,7 +6,14 @@ import MyHeader from '../MyHeader/MyHeader';
 
 // import axios from 'axios'
 
-export default class Example extends React.Component {
+// Your parent component manages the state that is the props for all child components.
+// This .setState on the parent component will update all of the props for child components.
+
+// Also a child component can modify the parent component by calling the 
+// Parent component function that was passed in as props.
+// That function usually does this.setState and is called by people at my old company a toaster function.
+
+export default class Layout extends React.Component {
   state = {
     formInfo: {
       name: '',
