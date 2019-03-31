@@ -4,7 +4,6 @@ import MyForm from '../MyForm/MyForm';
 import DataList from '../DataList/DataList';
 import MyHeader from '../MyHeader/MyHeader';
 import axios from 'axios';
-// import axios from 'axios'
 
 // Your parent component manages the state that is the props for all child components.
 // This .setState on the parent component will update all of the props for child components.
@@ -25,16 +24,6 @@ export default class Layout extends React.Component {
     }
   };
 
-  passUp = e => {
-    console.log(e)
-    this.setState({
-      formInfo: {
-        name: e.name,
-        comment: e.comment
-      }
-
-    })
-  };
 
   // DataList functions:
 
@@ -49,7 +38,6 @@ export default class Layout extends React.Component {
   };
 
   formSubmit = e => {
-    console.log('reached')
         axios
           .post("https://trash-server-rte.herokuapp.com/api/testData", {
             name: this.state.formInfo.name,
@@ -57,15 +45,20 @@ export default class Layout extends React.Component {
             })
         .then(console.log("Updated api successfully"))
         .catch(error => console.log("Update failed", {error}))
-        this.clearState(
+        this.updateState(
           this.state.formInfo.name,
           this.state.formInfo.comment
         )
        
     }
  
-  clearState = (name, comment) => {
-    console.log('This is clearForm', {name, comment})
+  updateState = (name, comment) => {
+    console.log('updating state locally (client side)', {name, comment})
+    // this.setState({
+    //   formInfo: {name, comment},
+    //   dataList: {fetchArr: [ this.state.formInfo, ...this.state.dataList.fetchArr ]}
+    // })
+
     this.state.formInfo.name = name;
     this.state.formInfo.comment = comment;
     this.state.dataList.fetchArr = [ this.state.formInfo, ...this.state.dataList.fetchArr ]
@@ -86,12 +79,11 @@ export default class Layout extends React.Component {
     console.log('DELETE');
     console.log(e.target.getAttribute('id'));
     const delID = e.target.getAttribute('id');
-    this.state.dataList.hasLoaded = false
     axios.delete(
       `https://trash-server-rte.herokuapp.com/api/testData/${delID}`
     );
     this.setState({
-      dataList: this.state.dataList,
+      dataList: {hasLoaded: false},
       /* hasLoaded: false */
     });
     this.fetchHeroku();
@@ -102,10 +94,8 @@ export default class Layout extends React.Component {
     fetch('https://trash-server-rte.herokuapp.com/api/testData')
       .then(res => res.json())
       .then(res => {
-        this.state.dataList.fetchArr = res
-        this.state.dataList.hasLoaded = true
         this.setState({
-          dataList: this.state.dataList,
+          dataList: {fetchArr: res, hasLoaded: true},
           /* dataList: {fetchArr: res}, */
           /* dataList: {hasLoaded: true */
         });
@@ -125,7 +115,7 @@ export default class Layout extends React.Component {
         <DataList 
           propsTwo={this.state}
           formChanged={this.formChanged} formSubmit={this.formSubmit} 
-          clearForm={this.clearForm} clearState={this.clearState}
+          clearForm={this.clearForm} updateState={this.updateState}
           deleteItem={this.deleteItem} fetchHeroku={this.fetchHeroku}
         />
       </>

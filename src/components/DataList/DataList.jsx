@@ -9,13 +9,8 @@ import {
   Row,
   Col
 } from 'reactstrap';
-import axios from 'axios';
 
 export default class DataList extends Component {
-
-  constructor(props){
-    super(props);
-  }
 
   componentDidMount() {
     this.props.fetchHeroku();
@@ -29,10 +24,7 @@ export default class DataList extends Component {
       //!Where would I put the key for the map function
       //!
       const finalArr = fetchArr.map((data, index) => {
-        console.log({fetchArr, props: this.props})
         return (
-         
-           
               <Col xs="6" sm="4">
                 <ListGroup id="myListGroup">
                   <ListGroupItem>

@@ -1,15 +1,9 @@
 import React from 'react';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
-// import "bootstrap/dist/css/bootstrap.css";
-// import './App.css'
+
 
 
 export default class MyForm extends React.Component {
- 
-constructor(props){
-  super(props);
-}
-
   render() {
     return (
       <Form id="myForm">
