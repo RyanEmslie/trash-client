@@ -4,23 +4,23 @@ self.__precacheManifest = [
     "url": "/trash-client/static/js/runtime~main.3046d327.js"
   },
   {
-    "revision": "a421c890fd80524fa146",
-    "url": "/trash-client/static/js/main.3ec763c7.chunk.js"
+    "revision": "0f9b7174396a916d407e",
+    "url": "/trash-client/static/js/main.1384adcf.chunk.js"
   },
   {
-    "revision": "06ace55c96f85ec4d64e",
-    "url": "/trash-client/static/js/2.186755e9.chunk.js"
+    "revision": "097896d74b67b25624ae",
+    "url": "/trash-client/static/js/2.972da2e8.chunk.js"
   },
   {
-    "revision": "a421c890fd80524fa146",
+    "revision": "0f9b7174396a916d407e",
     "url": "/trash-client/static/css/main.23b7bd9c.chunk.css"
   },
   {
-    "revision": "06ace55c96f85ec4d64e",
+    "revision": "097896d74b67b25624ae",
     "url": "/trash-client/static/css/2.9425bf90.chunk.css"
   },
   {
-    "revision": "f137fefbed97d0386074e99795eec83b",
+    "revision": "7f575baf245d0220ea1be69ee7110342",
     "url": "/trash-client/index.html"
   }
 ];
