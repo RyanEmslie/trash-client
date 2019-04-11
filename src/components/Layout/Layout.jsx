@@ -50,22 +50,21 @@ export default class Layout extends React.Component {
       await this.setState(state => {
         const newFetchArr = [result.data, ...state.dataList.fetchArr];
         return {
+          formInfo: {
+            name: '',
+            comment: ''
+          },
           dataList: {
             fetchArr: newFetchArr,
             hasLoaded: true
           }
         };
       });
-      this.clearForm();
     } catch (error) {
       console.log('Update failed', { error });
     }
   };
 
-  clearForm = () => {
-    document.querySelector('#userName').value = '';
-    document.querySelector('#exampleText').value = '';
-  };
 
   deleteItem = async e => {
     try {
@@ -115,7 +114,7 @@ export default class Layout extends React.Component {
           formChanged={this.formChanged}
           formSubmit={this.formSubmit}
           clearForm={this.clearForm}
-          updateState={this.updateState}
+          // updateState={this.updateState}
           deleteItem={this.deleteItem}
           fetchHeroku={this.fetchHeroku}
         />
