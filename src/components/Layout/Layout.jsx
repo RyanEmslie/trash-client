@@ -48,7 +48,7 @@ export default class Layout extends React.Component {
         }
       );
       await this.setState(state => {
-        const newFetchArr = [ result.data, ...state.dataList.fetchArr ];
+        const newFetchArr = [result.data, ...state.dataList.fetchArr];
         return {
           dataList: {
             fetchArr: newFetchArr,
@@ -62,67 +62,31 @@ export default class Layout extends React.Component {
     }
   };
 
-  // updateState = (name, comment) => {
-  //   console.log('updating state locally (client side)', { name, comment });
-  //   this.setState({
-  //     formInfo: { name, comment },
-  //     dataList: {
-  //       fetchArr: [this.state.formInfo, ...this.state.dataList.fetchArr]
-  //     }
-  //   });
-
-  //   // this.setState({})
-  //   // this.state.formInfo.name = name;
-  //   // this.state.formInfo.comment = comment;
-  //   // this.state.dataList.fetchArr = [ this.state.formInfo, ...this.state.dataList.fetchArr ]
-  //   this.setState({
-  //     formInfo: this.state.formInfo,
-  //     dataList: this.state.dataList
-  //   });
-
-  //   this.clearForm();
-  // };
-
   clearForm = () => {
     document.querySelector('#userName').value = '';
     document.querySelector('#exampleText').value = '';
   };
-  // deletes items from locations list
-  deleteItem = e => {
-    console.log('DELETE');
-    console.log(e.target);
-    console.log(e.target.getAttribute('id'));
-    const delID = e.target.getAttribute('id');
-    axios
-      .delete(`https://trash-server-rte.herokuapp.com/api/testData/${delID}`)
-      .then(console.log('Delete api successfully'))
-      .then(console.log('Then before catch'))
-      .then(
-        this.setState({
-          dataList: { fetchArr: this.fetchArr }
-        })
-      )
-      .then(this.fetchHeroku())
 
-      // .then( this.updateState(
-      //   this.state.formInfo.name,
-      //   this.state.formInfo.comment
-      // ))
-
-      .catch(error => console.log('Delete failed', { error }));
-
-    console.log('End of Delete');
-
-    // this.fetchHeroku()
-    // .then(this.fetchHeroku())
-    //   this.setState({
-    //     dataList: {hasLoaded: false},
-    //   });
-
-    //   this.fetchHeroku();
-    //   console.log('End of Delete')
-    // };
+  deleteItem = async e => {
+    try {
+      const delID = e.target.getAttribute('id');
+      const deleteResult = await axios.delete(`https://trash-server-rte.herokuapp.com/api/testData/${delID}`)
+      await this.setState(state => {
+        const newFetchArr = [deleteResult.data, ...state.dataList.fetchArr];
+        return {
+          dataList: {
+            fetchArr: newFetchArr,
+            hasLoaded: true
+          }
+        };
+      });
+      this.fetchHeroku();
+    } catch (error) {
+      console.log('Delete failed', { error });
+    }
   };
+
+
 
   fetchHeroku = () => {
     console.log('GET');
@@ -131,8 +95,6 @@ export default class Layout extends React.Component {
       .then(res => {
         this.setState({
           dataList: { fetchArr: res, hasLoaded: true }
-          /* dataList: {fetchArr: res}, */
-          /* dataList: {hasLoaded: true */
         });
       });
   };
