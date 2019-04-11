@@ -114,7 +114,6 @@ export default class Layout extends React.Component {
           formChanged={this.formChanged}
           formSubmit={this.formSubmit}
           clearForm={this.clearForm}
-          // updateState={this.updateState}
           deleteItem={this.deleteItem}
           fetchHeroku={this.fetchHeroku}
         />
