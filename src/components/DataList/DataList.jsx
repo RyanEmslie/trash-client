@@ -25,7 +25,7 @@ export default class DataList extends Component {
       //!
       const finalArr = fetchArr.map((data, index) => {
         return (
-              <Col xs="6" sm="4">
+              <Col key={data._id} xs="6" sm="4">
                 <ListGroup id="myListGroup">
                   <ListGroupItem>
                     <ListGroupItemHeading>{data.name}</ListGroupItemHeading>
@@ -34,8 +34,7 @@ export default class DataList extends Component {
                     <Button
                       type="submit"
                       color="danger"
-                      // key={markerItem.date}
-                      id={index}
+                      id={data._id}
                       className="remove-btn location-lists"
                       onClick={this.props.deleteItem}>
                       Delete
