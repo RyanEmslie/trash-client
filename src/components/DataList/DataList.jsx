@@ -20,9 +20,7 @@ export default class DataList extends Component {
     if (this.props.propsTwo.dataList.hasLoaded) {
       const { fetchArr } = this.props.propsTwo.dataList;
 
-      //!
-      //!Where would I put the key for the map function
-      //!
+      
       const finalArr = fetchArr.map((data, index) => {
         return (
               <Col key={data._id} xs="6" sm="4">

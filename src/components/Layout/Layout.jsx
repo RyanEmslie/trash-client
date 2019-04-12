@@ -65,13 +65,16 @@ export default class Layout extends React.Component {
     }
   };
 
-
   deleteItem = async e => {
     try {
       const delID = e.target.getAttribute('id');
-      const deleteResult = await axios.delete(`https://trash-server-rte.herokuapp.com/api/testData/${delID}`)
+      const deleteResult = await axios.delete(
+        `https://trash-server-rte.herokuapp.com/api/testData/${delID}`
+      );
       await this.setState(state => {
-        const newFetchArr = [deleteResult.data, ...state.dataList.fetchArr];
+        console.log(deleteResult.data)
+        const newFetchArr = [...state.dataList.fetchArr];
+        console.log(newFetchArr)
         return {
           dataList: {
             fetchArr: newFetchArr,
@@ -85,17 +88,24 @@ export default class Layout extends React.Component {
     }
   };
 
-
-
-  fetchHeroku = () => {
-    console.log('GET');
-    fetch('https://trash-server-rte.herokuapp.com/api/testData')
-      .then(res => res.json())
-      .then(res => {
-        this.setState({
-          dataList: { fetchArr: res, hasLoaded: true }
-        });
+  fetchHeroku = async () => {
+    try {
+      const getResult = await fetch(
+        'https://trash-server-rte.herokuapp.com/api/testData'
+      );
+      let data = await getResult.json();
+      
+      await this.setState(state => {
+        return {
+          dataList: {
+            fetchArr: data,
+            hasLoaded: true
+          }
+        };
       });
+    } catch (error) {
+      console.log('Error fetching data, { error }');
+    }
   };
 
   render() {
@@ -113,7 +123,6 @@ export default class Layout extends React.Component {
           propsTwo={this.state}
           formChanged={this.formChanged}
           formSubmit={this.formSubmit}
-          clearForm={this.clearForm}
           deleteItem={this.deleteItem}
           fetchHeroku={this.fetchHeroku}
         />
