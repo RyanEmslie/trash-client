@@ -40,11 +40,17 @@ export default class Layout extends React.Component {
   // onclick event from the submit button of the form
   formSubmit = async e => {
     try {
-      const result = await axios.post(
+      const result = await fetch(
         'https://trash-server-rte.herokuapp.com/api/testData',
         {
-          name: this.state.formInfo.name,
-          comment: this.state.formInfo.comment
+          method: 'Post',
+          body: JSON.stringify({
+            name: this.state.formInfo.name,
+            comment: this.state.formInfo.comment
+          }),
+          headers: {
+            'Content-type': 'application/json; charset=UTF-8'
+          }
         }
       );
       await this.setState(state => {
@@ -56,10 +62,11 @@ export default class Layout extends React.Component {
           },
           dataList: {
             fetchArr: newFetchArr,
-            hasLoaded: true
+            hasLoaded: false
           }
         };
       });
+      this.fetchHeroku();
     } catch (error) {
       console.log('Update failed', { error });
     }
@@ -72,9 +79,9 @@ export default class Layout extends React.Component {
         `https://trash-server-rte.herokuapp.com/api/testData/${delID}`
       );
       await this.setState(state => {
-        console.log(deleteResult.data)
+        console.log(deleteResult.data);
         const newFetchArr = [...state.dataList.fetchArr];
-        console.log(newFetchArr)
+        console.log(newFetchArr);
         return {
           dataList: {
             fetchArr: newFetchArr,
@@ -94,7 +101,6 @@ export default class Layout extends React.Component {
         'https://trash-server-rte.herokuapp.com/api/testData'
       );
       let data = await getResult.json();
-      
       await this.setState(state => {
         return {
           dataList: {

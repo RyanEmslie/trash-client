@@ -14,12 +14,14 @@ export default class DataList extends Component {
 
   componentDidMount() {
     this.props.fetchHeroku();
+    
   }
-
+  
   render() {
-    if (this.props.propsTwo.dataList.hasLoaded) {
+    if (this.props.propsTwo.dataList.hasLoaded)
+     {
+      
       const { fetchArr } = this.props.propsTwo.dataList;
-
       
       const finalArr = fetchArr.map((data, index) => {
         return (
